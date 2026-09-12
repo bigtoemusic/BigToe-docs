@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BigToe — Operating Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1C1917;
+    --bg-panel: #242020;
+    --bg-panel-2: #2B2624;
+    --line: rgba(242, 237, 228, 0.10);
+    --line-strong: rgba(242, 237, 228, 0.18);
+    --ink: #F2EDE4;
+    --ink-dim: #B8AFA2;
+    --ink-faint: #8A8177;
+    --amber: #E8A33D;
+    --amber-dim: #6B4E24;
+    --blue: #4FADE0;
+    --purple: #9B6BC7;
+    --yellow: #E6C15E;
+    --orange: #E8823D;
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--ink);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  code, .mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  a { color: var(--blue); }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 272px minmax(0, 1fr);
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 40px 28px 40px 32px;
+    border-right: 1px solid var(--line);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .brand-mark {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .brand-name {
+    font-family: 'Gochi Hand', cursive;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+
+  .brand-sub {
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin: 0 0 32px 32px;
+  }
+
+  nav.toc {
+    font-size: 14px;
+  }
+
+  nav.toc .group {
+    margin-bottom: 4px;
+  }
+
+  nav.toc a {
+    display: block;
+    color: var(--ink-dim);
+    text-decoration: none;
+    padding: 6px 0;
+    border-left: 2px solid transparent;
+    padding-left: 12px;
+    margin-left: -1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  nav.toc a:hover {
+    color: var(--ink);
+    border-color: var(--line-strong);
+  }
+
+  nav.toc a.active {
+    color: var(--amber);
+    border-color: var(--amber);
+  }
+
+  nav.toc .sub a {
+    padding-left: 26px;
+    font-size: 13.5px;
+    color: var(--ink-faint);
+  }
+
+  nav.toc .sub a:hover,
+  nav.toc .sub a.active { color: var(--ink); }
+
+  .sidebar-foot {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- Main ---------- */
+  main {
+    padding: 72px 56px 120px;
+    min-width: 0;
+  }
+
+  .content {
+    max-width: 660px;
+  }
+
+  header.hero {
+    margin-bottom: 64px;
+  }
+
+  .hero-eyebrow-led {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .led-chip {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-faint);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .dot.yellow { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
+  .dot.orange { background: var(--orange); box-shadow: 0 0 6px var(--orange); }
+  .dot.purple { background: var(--purple); box-shadow: 0 0 6px var(--purple); animation: blink 1.1s steps(2, start) infinite; }
+  .dot.blue { background: var(--blue); box-shadow: 0 0 6px var(--blue); }
+
+  @keyframes blink { 50% { opacity: 0.25; } }
+
+  h1.title {
+    font-family: 'Gochi Hand', cursive;
+    font-weight: 400;
+    font-size: 64px;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 19px;
+    color: var(--ink-dim);
+    max-width: 46ch;
+    font-weight: 400;
+  }
+
+  section {
+    margin-bottom: 68px;
+    scroll-margin-top: 32px;
+  }
+
+  section h2 {
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  section h3 {
+    font-size: 19px;
+    font-weight: 600;
+    margin: 34px 0 14px;
+  }
+
+  section h4 {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 26px 0 10px;
+  }
+
+  p { margin: 0 0 16px; color: var(--ink); }
+  p.dim { color: var(--ink-dim); }
+
+  ul, ol {
+    margin: 0 0 16px;
+    padding-left: 22px;
+  }
+
+  li { margin-bottom: 10px; }
+  li:last-child { margin-bottom: 0; }
+
+  li > p { margin: 0; }
+
+  strong { color: var(--ink); font-weight: 600; }
+
+  em { color: var(--ink-dim); font-style: italic; }
+
+  .note {
+    display: flex;
+    gap: 12px;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--amber);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin: 24px 0;
+    font-size: 14.5px;
+    color: var(--ink-dim);
+  }
+
+  .note strong { color: var(--amber); font-weight: 600; }
+
+  /* Components — 3 up */
+  .components {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 24px 0 8px;
+  }
+
+  .component-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+
+  .component-card .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .component-card h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+  }
+
+  .component-card p {
+    font-size: 14px;
+    color: var(--ink-dim);
+    margin: 0;
+  }
+
+  /* Setup steps */
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+    counter-reset: step;
+  }
+
+  .steps > li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 42px;
+    margin-bottom: 22px;
+  }
+
+  .steps > li::before {
+    content: counter(step);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-dim);
+  }
+
+  code.key {
+    background: var(--bg-panel-2);
+    border: 1px solid var(--line);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.92em;
+    color: var(--amber);
+  }
+
+  /* Definition-style list for Edit Window fields */
+  .field-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  .field-list > li {
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .field-list > li:last-child { padding-bottom: 0; }
+
+  .field-list .field-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13.5px;
+    color: var(--amber);
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+  /* Menu functions — pedalboard cards */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 24px 0;
+  }
+
+  .menu-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--amber-dim);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+
+  .menu-card h4 {
+    margin: 0 0 10px;
+    font-size: 14.5px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--ink);
+    text-transform: none;
+  }
+
+  .menu-card ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .menu-card li {
+    font-size: 13.8px;
+    color: var(--ink-dim);
+    margin-bottom: 8px;
+  }
+
+  .menu-card li strong { color: var(--ink); }
+
+  /* Platform tabs (Bluetooth) */
+  .platform-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .platform-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+
+  .platform-card h4 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--blue);
+  }
+
+  .platform-card p {
+    font-size: 13.8px;
+    color: var(--ink-dim);
+    margin: 0;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+
+  .tag-types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 8px;
+  }
+
+  .tag-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    padding: 6px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    color: var(--ink-dim);
+  }
+
+  .tag-pill.recommended {
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  footer.doc-footer {
+    margin-top: 90px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-faint);
+    font-size: 13px;
+  }
+
+  /* Mobile nav toggle */
+  .mobile-bar {
+    display: none;
+  }
+
+  @media (max-width: 920px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: 82%;
+      max-width: 320px;
+      background: var(--bg);
+      z-index: 40;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .mobile-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(28, 25, 23, 0.92);
+      backdrop-filter: blur(6px);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .mobile-bar button {
+      background: none;
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 7px 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+    }
+    main { padding: 40px 22px 100px; }
+    h1.title { font-size: 36px; }
+    .components, .menu-grid, .platform-row { grid-template-columns: 1fr; }
+    .scrim {
+      display: none;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 35;
+    }
+    .scrim.show { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mobile-bar">
+  <button id="navToggle">Menu</button>
+  <span class="brand-name" style="font-size:15px;">BigToe — Operating Guide</span>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img class="brand-mark" src="logoMark.png" alt="BigToe logo">
+      <span class="brand-name">BigToe</span>
+    </div>
+    <p class="brand-sub">Operating Guide</p>
+
+    <nav class="toc" id="toc">
+      <div class="group"><a href="#introduction">Introduction</a></div>
+      <div class="group sub"><a href="#components">Components</a></div>
+      <div class="group"><a href="#setup">Setup</a></div>
+      <div class="group"><a href="#creating-pedals">Creating your pedals</a></div>
+      <div class="group sub"><a href="#event-rows">Event rows</a></div>
+      <div class="group sub"><a href="#pad-name">Setting the pad name</a></div>
+      <div class="group"><a href="#connecting">Connecting to your software</a></div>
+      <div class="group sub"><a href="#bluetooth">Bluetooth</a></div>
+      <div class="group sub"><a href="#hardware-devices">Hardware devices</a></div>
+      <div class="group"><a href="#using-bigtoe">Using BigToe</a></div>
+      <div class="group sub"><a href="#monitor-screen">The monitor screen</a></div>
+      <div class="group sub"><a href="#menu-functions">Menu functions</a></div>
+      <div class="group sub"><a href="#editing-pedals">Editing pedals</a></div>
+      <div class="group sub"><a href="#drag-drop">Drag and drop</a></div>
+      <div class="group"><a href="#sock">The sock</a></div>
+      <div class="group"><a href="#pedal-pads">Pedal pads and RFID</a></div>
+    </nav>
+
+    <div class="sidebar-foot">Wearable BLE MIDI foot control<br>for the mobile musician.</div>
+  </aside>
+
+  <main>
+    <div class="content">
+
+      <header class="hero">
+        <div class="hero-eyebrow-led">
+          <span class="led-chip"><span class="dot yellow"></span>starting up</span>
+          <span class="led-chip"><span class="dot orange"></span>pairing</span>
+          <span class="led-chip"><span class="dot purple"></span>reading a tag</span>
+          <span class="led-chip"><span class="dot blue"></span>connected</span>
+        </div>
+        <h1 class="title">BigToe</h1>
+        <p class="subtitle">Operating Guide — everything you need to set up, connect, and play with your BigToe MIDI foot controller.</p>
+      </header>
+
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <p>BigToe is a unique MIDI foot controller built for musicians using software effects or any MIDI-enabled equipment, giving you all the controls you want, anywhere you want them.</p>
+        <p>Unlike traditional controllers with a limited number of buttons, BigToe gives you a physical touchpoint for as many of your software effects as you like, laid out just like physical pedals.</p>
+        <p>BigToe's patented solution uses RFID and proprietary technology to help you break free of banks and presets. It has no noisy switches, is virtually spill-proof, and its ultra-lightweight design makes it perfect for the mobile musician.</p>
+
+        <h3 id="components">Components</h3>
+        <div class="components">
+          <div class="component-card">
+            <!-- <span class="num">01</span> -->
+            <h4>Pedal Pads/RFID tags</h4>
+            <p>Pads holds your RFID tags. Each RFID tag is a "pedal" that triggers your software effects.</p>
+          </div>
+          <div class="component-card">
+            <!-- <span class="num">02</span> -->
+            <h4>Device</h4>
+            <p>A main compartment holding a microprocessor and battery, attached to an RFID reader.</p>
+          </div>
+          <div class="component-card">
+            <!-- <span class="num">03</span> -->
+            <h4>Sock</h4>
+            <p>Slips over your shoe. The Device sits in the top pocket, the RFID reader tucks under your toes.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="setup">
+        <h2>Setup</h2>
+        <p>You set up and monitor your BigToe through Wi-Fi and a standard web browser interface. This is where you add new pedals, and edit them later.</p>
+        <ol class="steps">
+          <li>Turn on the device. The LED will flash <strong style="color:var(--yellow)">yellow</strong>, indicating it's running but not yet connected to send MIDI messages to your software effects.</li>
+          <li>Go to your computing device's Wi-Fi configuration and you'll see your BigToe listed as a network device, named in the format <code class="key">BigToe-xxxxxxxxxxxx</code>. Select it and use the default Wi-Fi password <code class="key">1234567890</code> (You can change both the name and password later). The LED will change to flashing <strong style="color:var(--orange)">orange</strong>.</li>
+          <li>Open a web browser and go to <code class="key">bigtoe.local</code> — the BigToe screen will appear.</li>
+        </ol>
+      </section>
+
+      <section id="creating-pedals">
+        <h2>Creating your Pedals</h2>
+        <p>Your BigToe comes with 16 Pedals that have been preloaded. Click (laptop) or tap (touchscreen) a Pedal name to edit or delete it. If you delete the Pedal, you can add it back from the menu.</p>
+        <p>From the menu, select <em>New</em>. The LED will rapidly flash <strong style="color:var(--purple)">purple</strong>, indicating it's ready for you to select an RFID tag — you will have about 20 seconds to tap the reader to it (you can always just do it again if you miss the window).  The Edit Window will appear and the LED returns to flashing orange. Define the pedal's information in the Edit Window; the same process applies when editing an existing pedal.</p>
+        <p>To edit an existing Pedal, click the pencil icon &#x270E; and the Edit Window will appear.</p>		
+
+        <h3>Edit Window fields</h3>
+        <ul class="field-list">
+          <li><span class="field-name">Image</span>With the supplied RFID tags, the screen image is set automatically from your tag by default.  Any other tag defaults to a white circle — click the image to choose your own from your computer.  Print it and stick it on the tag if you like.  Or draw on a card, take a picture and upload that image.  You can have a lot of fun customizing your layout.</li>
+          <li><span class="field-name">Name</span>Up to 15 characters, e.g. "Chorus," "Overdrive," "Reverb."</li>
+          <li><span class="field-name">Group</span>Enter a name for a group this Pedal belongs to up to 15 characters.  BigToe ensures only one pedal in a Group is "on" at a time — useful for several pedals of one effect class, like four delay types, or amps. Turning one on in the group automatically turns the others off.</li>
+          <li><span class="field-name">Pad</span>Which pad the pedal appears in. Defaults to the first available slot.</li>
+          <li><span class="field-name">Bkgnd</span>Black or White, matching your RFID card. Supplied tags print the icon on a black background, but standard white cards work too.</li>
+          <li><span class="field-name">Fire On</span>Press or Release — fire the MIDI event when you first tap the tag, or when you lift the reader away from it.</li>
+        </ul>
+
+        <p>Then define the MIDI event for this pedal. One row is visible by default — click <em>Show More</em> to reveal all 5 event rows, or <em>Show Less</em> to collapse back to one.</p>
+
+        <h3 id="event-rows">Event rows</h3>
+        <ul class="field-list">
+          <li><span class="field-name">Active</span>The first row is active by default. Events only fire when this toggle is set (green).</li>
+          <li><span class="field-name">Mode</span>
+            <ul style="margin-top:10px;">
+              <li><strong>Footswitch</strong> — classic stomp-box action - one tap turns the effect on, a second turns it off.</li>
+              <li><strong>Momentary</strong> — on when tapped, off when released.</li>
+              <li><strong>Expression</strong> — sets values for a continuous controller and can increment or decrement that value with each press. Good for simulating faders and knobs.</li>
+              <li><strong>Trigger</strong> — fires an event without Footswitch mode's state management. Also supports increment/decrement per press — useful for paging through presets and banks.</li>
+            </ul>
+          </li>
+          <li><span class="field-name">Type</span>BigToe sends CC (Control Change), PC (Program Change), and NOTE messages.</li>
+          <li><span class="field-name">Channel</span>One of the 16 MIDI channels.</li>
+          <li><span class="field-name">CC / PC / Note</span>The CC, PC or NOTE value.</li>
+          <li><span class="field-name">Value</span>Set automatically for Footswitch and Momentary. For Expression pedals, set a value from 0–127.</li>
+          <li><span class="field-name">+ / −</span>For Expression and Trigger modes, increment or decrement the pedal's current value.</li>
+          <li><span class="field-name">Bump</span>For Expression pedals, how much each press increments or decrements the value.  Set a value from 0–127.</li>
+        </ul>
+
+        <p>Click <em>Add</em>  (or <em>Update</em> when editing an existing Pedal ) to finish — your pedal appears on screen. Once your pedals are defined, use your effect software's MIDI settings to map its controls to the events you've created.</p>
+
+        <h3 id="pad-name">Setting the pad name</h3>
+        <p>Click the Pad Name to open a dialog where you can set a name for the pad — a visual aid for organizing your pedals.</p>
+      </section>
+
+      <section id="connecting">
+        <h2>Connecting to your effects software or MIDI instrument</h2>
+        <p>BigToe connects to your MIDI software or hardware over Bluetooth Low Energy (BLE). Once connected, the LED turns solid <strong style="color:var(--blue)">blue</strong>, indicating you're ready to send MIDI messages.</p>
+        <div class="note"><div><strong>Note —</strong> connect your browser window to the BigToe before Bluetooth, in order to enable BLE.</div></div>
+
+        <h3 id="bluetooth">Bluetooth</h3>
+        <div class="platform-row">
+          <div class="platform-card">
+            <h4>macOS</h4>
+            <p>Open Audio MIDI Setup, then the Bluetooth Configuration window. Your device will show as active — click Connect and watch the LED shift from flashing orange to solid blue.</p>
+          </div>
+          <div class="platform-card">
+            <h4>iOS</h4>
+            <p>Many MIDI-enabled apps, like Loopy Pro, include Bluetooth connection controls — follow your app's instructions. If your app doesn't have a Bluetooth connection control, use a third-party app like nRF Connect.</p>
+          </div>
+          <div class="platform-card">
+            <h4>Windows</h4>
+            <p>See the BigToe Windows BLE MIDI Setup Guide for step-by-step instructions.</p>
+          </div>
+        </div>
+
+        <h3 id="hardware-devices">Hardware devices</h3>
+        <p>Devices without built-in Bluetooth can connect via third-party wireless adapters, such as CME's WIDI Master. Once plugged into your MIDI hardware, the adapter finds and pairs with your BigToe automatically. Check your adapter's manual for details.</p>
+      </section>
+
+      <section id="using-bigtoe">
+        <h2>Using BigToe</h2>
+        <p>With your pedals defined and your MIDI transport connected (blue light on), you're ready to play. A tap of the tag with the reader under your toe is all it takes to trigger your MIDI event.</p>
+
+        <h3 id="monitor-screen">The monitor screen</h3>
+        <p>The BigToe monitor is where you define and edit pedals, and monitor effects in real time. It also acts as a control surface, so you can trigger events directly from the interface.</p>
+        <p>Across the top of the screen:</p>
+        <ul>
+          <li><strong>Menu</strong> — the hamburger icon reveals the main menu functions.</li>
+          <li><strong>Device Name</strong> — the default name, or the one you've set.</li>
+          <li><strong>Battery</strong> — battery health; roughly 6 hours of use per charge, via the supplied USB-C cable.</li>
+          <li><strong>BigToe icon</strong> — well,… why not?</li>
+        </ul>
+
+        <h3 id="menu-functions">Menu functions</h3>
+        <div class="menu-grid">
+          <div class="menu-card">
+            <h4>Pedals</h4>
+            <ul>
+              <li><strong>New</strong> — define a Pedal for a new RFID tag.</li>
+              <li><strong>Find</strong> — locate the Pedal a specific tag is linked to.</li>
+              <li><strong>Clear All</strong> — clear every Pedal definition.</li>
+              <li><strong>Pedal Size +/−</strong> — resize the Pedal icons on screen.</li>
+            </ul>
+          </div>
+          <div class="menu-card">
+            <h4>Save / Load Pedals &amp; Pads</h4>
+            <ul>
+              <li><strong>Save</strong> — write your current Pedal and Pad layout to a file, handy for separate sets per gig or instrument. Saved to your browser's download folder.</li>
+              <li><strong>Load</strong> — restore a saved file. Current Pedals are deleted and replaced.</li>
+            </ul>
+          </div>
+          <div class="menu-card" style="grid-column: 1 / -1;">
+            <h4>Settings</h4>
+            <ul>
+              <li><strong>Pad Layout</strong> — customize Pad order, how many appear per row, and which are shown.</li>
+              <li><strong>Manage User Images</strong> — see available space, load images from your computing device, and delete unused images to free up space. </li>
+              <li><strong>Set Device Name</strong> — The default name for your device is "BigToe-" + the MAC address (network ID).  Replace the default name with your own up to 20 characters.</li>
+              <li><strong>Set Wi-Fi Password</strong> — change it from the default <code class="key">1234567890</code>.</li>
+            </ul>
+          </div>
+        </div>
+
+
+        <h3 id="drag-drop">Drag and drop</h3>
+        <p>Pedals can be rearranged with a drag-and-drop action:</p>
+        <ul>
+          <li><strong>Laptop</strong> — click the pedal body and drag. Its background turns gray while dragging.</li>
+          <li><strong>Touchscreen</strong> — tap and hold the pedal body until it turns gray, then drag.</li>
+        </ul>
+        <p>Drop the pedal at its new spot — every other pedal shifts right to make room.</p>
+      </section>
+
+      <section id="sock">
+        <h2>The sock</h2>
+        <p>The machine-washable sock stretches easily to fit your shoe size. Integrated pockets keep your BigToe device snug and secure, and the non-slip backing keeps you steady too. It's so light and close-fitting you may forget you're wearing it.</p>
+      </section>
+
+      <section id="pedal-pads">
+        <h2>Pedal pads and RFID</h2>
+        <p>The pads for your RFID tags are built for flexibility:</p>
+        <ul>
+          <li>Place them anywhere on stage that's convenient — around mic stands, or to fit your floor configuration.</li>
+          <li>Define duplicate pedals to place at different points on stage.</li>
+          <li>Swap tag positions as needed, then drag and drop them on your BigToe monitor to match.</li>
+          <li>Soft yet durable, flexible, and lightweight — they fit easily in a gig bag, guitar case, backpack, or even a pocket.</li>
+        </ul>
+
+        <h3>RFID tag types</h3>
+        <p>Pads fit standard CR80 RFID cards. Any of these high-frequency (13.56 MHz) tag types work with BigToe:</p>
+        <div class="tag-types">
+          <span class="tag-pill recommended">MIFARE Classic — recommended</span>
+          <span class="tag-pill">MIFARE Ultralight</span>
+          <span class="tag-pill">NTAG 213</span>
+          <span class="tag-pill">NTAG 215</span>
+        </div>
+        <p class="dim" style="margin-top:14px; font-size:14px;">MIFARE Classic–compatible tags have smaller unique identifiers, making reading and pedal identification a few milliseconds faster than other tag types.</p>
+      </section>
+
+      <footer class="doc-footer">
+        BigToe Operating Guide
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  // Mobile nav
+  const sidebar = document.getElementById('sidebar');
+  const toggle = document.getElementById('navToggle');
+  const scrim = document.getElementById('scrim');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      scrim.classList.toggle('show');
+    });
+    scrim.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      scrim.classList.remove('show');
+    });
+    document.querySelectorAll('#toc a').forEach(a => {
+      a.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        scrim.classList.remove('show');
+      });
+    });
+  }
+
+  // Scroll-spy active TOC link
+  const sections = document.querySelectorAll('section, section h3[id]');
+  const tocLinks = document.querySelectorAll('#toc a');
+  const linkMap = {};
+  tocLinks.forEach(l => linkMap[l.getAttribute('href').slice(1)] = l);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      if (!id || !linkMap[id]) return;
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        linkMap[id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+  document.querySelectorAll('[id]').forEach(el => {
+    if (linkMap[el.id]) observer.observe(el);
+  });
+</script>
+</body>
+</html>
