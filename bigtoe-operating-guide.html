@@ -185,6 +185,11 @@
   .dot.orange { background: var(--orange); box-shadow: 0 0 6px var(--orange); }
   .dot.purple { background: var(--purple); box-shadow: 0 0 6px var(--purple); animation: blink 1.1s steps(2, start) infinite; }
   .dot.blue { background: var(--blue); box-shadow: 0 0 6px var(--blue); }
+  .dot.white { background: var(--ink); box-shadow: 0 0 6px var(--ink); }
+  .dot.blink { animation: blink 1.1s steps(2, start) infinite; }
+  .dot.blink-fast { animation: blink 0.4s steps(2, start) infinite; }
+
+  .field-list .field-name .dot { margin-right: 6px; vertical-align: 1px; }
 
   @keyframes blink { 50% { opacity: 0.25; } }
 
@@ -535,6 +540,7 @@
       <div class="group sub"><a href="#bluetooth">Bluetooth</a></div>
       <div class="group sub"><a href="#hardware-devices">Hardware devices</a></div>
       <div class="group"><a href="#using-bigtoe">Using BigToe</a></div>
+      <div class="group sub"><a href="#status-light">The status light</a></div>
       <div class="group sub"><a href="#monitor-screen">The monitor screen</a></div>
       <div class="group sub"><a href="#menu-functions">Menu functions</a></div>
       <div class="group sub"><a href="#editing-pedals">Editing pedals</a></div>
@@ -551,9 +557,9 @@
 
       <header class="hero">
         <div class="hero-eyebrow-led">
-          <span class="led-chip"><span class="dot yellow"></span>starting up</span>
-          <span class="led-chip"><span class="dot orange"></span>pairing</span>
-          <span class="led-chip"><span class="dot purple"></span>reading a tag</span>
+          <span class="led-chip"><span class="dot yellow blink"></span>starting up</span>
+          <span class="led-chip"><span class="dot yellow"></span>browser connected</span>
+          <span class="led-chip"><span class="dot white blink"></span>reading a tag</span>
           <span class="led-chip"><span class="dot blue"></span>connected</span>
         </div>
         <h1 class="title">BigToe</h1>
@@ -591,7 +597,7 @@
         <p>You set up and monitor your BigToe through Wi-Fi and a standard web browser interface. This is where you add new pedals, and edit them later.</p>
         <ol class="steps">
           <li>Turn on the device. The LED will flash <strong style="color:var(--yellow)">yellow</strong>, indicating it's running but not yet connected to send MIDI messages to your software effects.</li>
-          <li>Go to your computing device's Wi-Fi configuration and you'll see your BigToe listed as a network device, named in the format <code class="key">BigToe-xxxxxxxxxxxx</code>. Select it and use the default Wi-Fi password <code class="key">1234567890</code> (You can change both the name and password later). The LED will change to flashing <strong style="color:var(--orange)">orange</strong>.</li>
+          <li>Go to your computing device's Wi-Fi configuration and you'll see your BigToe listed as a network device, named in the format <code class="key">BigToe-xxxxxxxxxxxx</code>. Select it and use the default Wi-Fi password <code class="key">1234567890</code> (You can change both the name and password later). The LED will change to solid <strong style="color:var(--yellow)">yellow</strong>.</li>
           <li>Open a web browser and go to <code class="key">bigtoe.local</code> — the BigToe screen will appear.</li>
         </ol>
       </section>
@@ -599,7 +605,7 @@
       <section id="creating-pedals">
         <h2>Creating your Pedals</h2>
         <p>Your BigToe comes with 16 Pedals that have been preloaded. Click (laptop) or tap (touchscreen) a Pedal name to edit or delete it. If you delete the Pedal, you can add it back from the menu.</p>
-        <p>From the menu, select <em>New</em>. The LED will rapidly flash <strong style="color:var(--purple)">purple</strong>, indicating it's ready for you to select an RFID tag — you will have about 20 seconds to tap the reader to it (you can always just do it again if you miss the window).  The Edit Window will appear and the LED returns to flashing orange. Define the pedal's information in the Edit Window; the same process applies when editing an existing pedal.</p>
+        <p>From the menu, select <em>New</em>. The LED will rapidly flash <strong style="color:var(--ink)">white</strong>, indicating it's ready for you to select an RFID tag — you will have about 20 seconds to tap the reader to it (you can always just do it again if you miss the window).  The Edit Window will appear and the LED returns to solid <strong style="color:var(--yellow)">yellow</strong>. Define the pedal's information in the Edit Window; the same process applies when editing an existing pedal.</p>
         <p>To edit an existing Pedal, click the pencil icon &#x270E; and the Edit Window will appear.</p>		
 
         <h3>Edit Window fields</h3>
@@ -648,7 +654,7 @@
         <div class="platform-row">
           <div class="platform-card">
             <h4>macOS</h4>
-            <p>Open Audio MIDI Setup, then the Bluetooth Configuration window. Your device will show as active — click Connect and watch the LED shift from flashing orange to solid blue.</p>
+            <p>Open Audio MIDI Setup, then the Bluetooth Configuration window. Your device will show as active — click Connect and watch the LED shift from solid yellow to solid blue.</p>
           </div>
           <div class="platform-card">
             <h4>iOS</h4>
@@ -666,6 +672,17 @@
       <section id="using-bigtoe">
         <h2>Using BigToe</h2>
         <p>With your pedals defined and your MIDI transport connected (blue light on), you're ready to play. A tap of the tag with the reader under your toe is all it takes to trigger your MIDI event.</p>
+
+        <h3 id="status-light">The status light</h3>
+        <p>The LED on BigToe shows what it's doing at a glance.</p>
+        <ul class="field-list">
+          <li><span class="field-name"><span class="dot yellow blink"></span>Flashing yellow</span>BigToe is on, with nothing connected yet.</li>
+          <li><span class="field-name"><span class="dot yellow"></span>Solid yellow</span>Your browser is connected to BigToe's WiFi; Bluetooth MIDI isn't connected yet.</li>
+          <li><span class="field-name"><span class="dot blue"></span>Solid blue</span>Bluetooth MIDI is connected — you're ready to play.</li>
+          <li><span class="field-name"><span class="dot white"></span>White</span>A pedal was turned on. Shows for 2 seconds, then returns to blue.</li>
+          <li><span class="field-name"><span class="dot white blink"></span>White, blinking</span>A pedal was turned off. Blinks for 2 seconds, then returns to blue.</li>
+          <li><span class="field-name"><span class="dot white blink"></span>Flashing white</span>Waiting for you to tap a tag, e.g. when defining a new pedal. Returns to yellow or blue once the tag is read.</li>
+        </ul>
 
         <h3 id="monitor-screen">The monitor screen</h3>
         <p>The BigToe monitor is where you define and edit pedals, and monitor effects in real time. It also acts as a control surface, so you can trigger events directly from the interface.</p>
