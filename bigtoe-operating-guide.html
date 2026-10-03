@@ -95,8 +95,12 @@
   .brand-sub {
     font-size: 13px;
     color: var(--ink-faint);
-    margin: 0 0 32px 32px;
+    margin: 0 0 8px 32px;
   }
+
+  .brand-back { font-size: 12.5px; margin: 0 0 32px 32px; }
+  .brand-back a { color: var(--ink-faint); text-decoration: none; }
+  .brand-back a:hover { color: var(--blue); }
 
   nav.toc {
     font-size: 14px;
@@ -511,6 +515,10 @@
     }
     .scrim.show { display: block; }
   }
+
+  /* Link back to the main site, shown in the phone-width top bar. */
+  .mobile-home { margin-left: auto; font-size: 12.5px; color: var(--ink-faint); text-decoration: none; white-space: nowrap; }
+  .mobile-home:hover { color: var(--blue); }
 </style>
 </head>
 <body>
@@ -518,6 +526,7 @@
 <div class="mobile-bar">
   <button id="navToggle">Menu</button>
   <span class="brand-name" style="font-size:15px;">BigToe — Operating Guide</span>
+  <a class="mobile-home" href="https://bigtoemusic.com/">&larr; Main site</a>
 </div>
 <div class="scrim" id="scrim"></div>
 
@@ -528,6 +537,7 @@
       <span class="brand-name">BigToe</span>
     </div>
     <p class="brand-sub">Operating Guide</p>
+    <p class="brand-back">&larr; <a href="https://bigtoemusic.com/">bigtoemusic.com</a></p>
 
     <nav class="toc" id="toc">
       <div class="group"><a href="#introduction">Introduction</a></div>
