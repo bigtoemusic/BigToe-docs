@@ -542,6 +542,7 @@
     <nav class="toc" id="toc">
       <div class="group"><a href="#introduction">Introduction</a></div>
       <div class="group sub"><a href="#components">Components</a></div>
+      <div class="group"><a href="#sock">The Sock</a></div>
       <div class="group"><a href="#setup">Setup</a></div>
       <div class="group"><a href="#creating-pedals">Creating your pedals</a></div>
       <div class="group sub"><a href="#event-rows">Event rows</a></div>
@@ -555,7 +556,6 @@
       <div class="group sub"><a href="#menu-functions">Menu functions</a></div>
       <div class="group sub"><a href="#editing-pedals">Editing pedals</a></div>
       <div class="group sub"><a href="#drag-drop">Drag and drop</a></div>
-      <div class="group"><a href="#sock">The sock</a></div>
       <div class="group"><a href="#pedal-pads">Pedal pads and RFID</a></div>
     </nav>
 
@@ -592,14 +592,24 @@
           <div class="component-card">
             <!-- <span class="num">02</span> -->
             <h4>Device</h4>
-            <p>A main compartment holding a microprocessor and battery, attached to an RFID reader.</p>
+            <p>A main compartment holding a microprocessor and battery, attached to an RFID antenna.</p>
           </div>
           <div class="component-card">
             <!-- <span class="num">03</span> -->
             <h4>Sock</h4>
-            <p>Slips over your shoe. The Device sits in the top pocket, the RFID reader tucks under your toes.</p>
+            <p>Slips over your shoe. The Device sits in the top pocket, the RFID antenna tucks under your toes.</p>
           </div>
         </div>
+      </section>
+
+      <section id="sock">
+        <h2>The Sock</h2>
+        <p>The machine-washable sock stretches easily to fit your shoe size. Integrated pockets keep your BigToe device snug and secure, and the non-slip backing keeps you steady too. It's so light and close-fitting you may forget you're wearing it.</p>
+        <ol class="steps">
+          <li>Slide the Device, RFID antenna first, up through the channel on top of the sock, so the main compartment sits in its pocket with the LED exposed.</li>
+          <li>Tuck the RFID antenna into the pocket on the underside of the sock.</li>
+          <li>Slip the sock on over your shoe.</li>
+        </ol>
       </section>
 
       <section id="setup">
@@ -615,7 +625,7 @@
       <section id="creating-pedals">
         <h2>Creating your Pedals</h2>
         <p>Your BigToe comes with 16 Pedals that have been preloaded. Click (laptop) or tap (touchscreen) a Pedal name to edit or delete it. If you delete the Pedal, you can add it back from the menu.</p>
-        <p>From the menu, select <em>New</em>. The LED will rapidly flash <strong style="color:var(--ink)">white</strong>, indicating it's ready for you to select an RFID tag — you will have about 20 seconds to tap the reader to it (you can always just do it again if you miss the window).  The Edit Window will appear and the LED returns to solid <strong style="color:var(--yellow)">yellow</strong>. Define the pedal's information in the Edit Window; the same process applies when editing an existing pedal.</p>
+        <p>From the menu, select <em>New</em>. The LED will rapidly flash <strong style="color:var(--ink)">white</strong>, indicating it's ready for you to select an RFID tag — you will have about 20 seconds to tap the antenna to it (you can always just do it again if you miss the window).  The Edit Window will appear and the LED returns to solid <strong style="color:var(--yellow)">yellow</strong>. Define the pedal's information in the Edit Window; the same process applies when editing an existing pedal.</p>
         <p>To edit an existing Pedal, click the pencil icon &#x270E; and the Edit Window will appear.</p>		
 
         <h3>Edit Window fields</h3>
@@ -625,7 +635,7 @@
           <li><span class="field-name">Group</span>Enter a name for a group this Pedal belongs to up to 15 characters.  BigToe ensures only one pedal in a Group is "on" at a time — useful for several pedals of one effect class, like four delay types, or amps. Turning one on in the group automatically turns the others off.</li>
           <li><span class="field-name">Pad</span>Which pad the pedal appears in. Defaults to the first available slot.</li>
           <li><span class="field-name">Bkgnd</span>Black or White, matching your RFID card. Supplied tags print the icon on a black background, but standard white cards work too.</li>
-          <li><span class="field-name">Fire On</span>Press or Release — fire the MIDI event when you first tap the tag, or when you lift the reader away from it.</li>
+          <li><span class="field-name">Fire On</span>Press or Release — fire the MIDI event when you first tap the tag, or when you lift the antenna away from it.</li>
         </ul>
 
         <p>Then define the MIDI event for this pedal. One row is visible by default — click <em>Show More</em> to reveal all 5 event rows, or <em>Show Less</em> to collapse back to one.</p>
@@ -681,7 +691,7 @@
 
       <section id="using-bigtoe">
         <h2>Using BigToe</h2>
-        <p>With your pedals defined and your MIDI transport connected (blue light on), you're ready to play. A tap of the tag with the reader under your toe is all it takes to trigger your MIDI event.</p>
+        <p>With your pedals defined and your MIDI transport connected (blue light on), you're ready to play. A tap of the tag with the antenna under your toe is all it takes to trigger your MIDI event.</p>
 
         <h3 id="status-light">The status light</h3>
         <p>The LED on BigToe shows what it's doing at a glance.</p>
@@ -741,11 +751,6 @@
           <li><strong>Touchscreen</strong> — tap and hold the pedal body until it turns gray, then drag.</li>
         </ul>
         <p>Drop the pedal at its new spot — every other pedal shifts right to make room.</p>
-      </section>
-
-      <section id="sock">
-        <h2>The sock</h2>
-        <p>The machine-washable sock stretches easily to fit your shoe size. Integrated pockets keep your BigToe device snug and secure, and the non-slip backing keeps you steady too. It's so light and close-fitting you may forget you're wearing it.</p>
       </section>
 
       <section id="pedal-pads">
