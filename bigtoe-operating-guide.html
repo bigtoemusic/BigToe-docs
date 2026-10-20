@@ -553,6 +553,7 @@
       <div class="group"><a href="#using-bigtoe">Using BigToe</a></div>
       <div class="group sub"><a href="#status-light">The status light</a></div>
       <div class="group sub"><a href="#monitor-screen">The monitor screen</a></div>
+      <div class="group sub"><a href="#battery">Battery and charging</a></div>
       <div class="group sub"><a href="#menu-functions">Menu functions</a></div>
       <div class="group sub"><a href="#editing-pedals">Editing pedals</a></div>
       <div class="group sub"><a href="#drag-drop">Drag and drop</a></div>
@@ -702,6 +703,7 @@
           <li><span class="field-name"><span class="dot white"></span>White</span>A pedal was turned on. Shows for 2 seconds, then returns to blue.</li>
           <li><span class="field-name"><span class="dot white blink"></span>White, blinking</span>A pedal was turned off. Blinks for 2 seconds, then returns to blue.</li>
           <li><span class="field-name"><span class="dot white blink"></span>Flashing white</span>Waiting for you to tap a tag, e.g. when defining a new pedal. Returns to yellow or blue once the tag is read.</li>
+          <li><span class="field-name"><span class="dot yellow blink"></span>3 yellow blinks, then off</span>The battery is too low to start. Plug BigToe in to charge — see <a href="#battery">Battery and charging</a>.</li>
         </ul>
 
         <h3 id="monitor-screen">The monitor screen</h3>
@@ -710,8 +712,17 @@
         <ul>
           <li><strong>Menu</strong> — the hamburger icon reveals the main menu functions.</li>
           <li><strong>Device Name</strong> — the default name, or the one you've set.</li>
-          <li><strong>Battery</strong> — battery health; roughly 6 hours of use per charge, via the supplied USB-C cable.</li>
+          <li><strong>Battery</strong> — estimated charge remaining; roughly 5½ hours of use per charge, via the supplied USB-C cable. See <a href="#battery">Battery and charging</a>.</li>
           <li><strong>BigToe icon</strong> — well,… why not?</li>
+        </ul>
+
+        <h3 id="battery">Battery and charging</h3>
+        <ul>
+          <li><strong>Run time</strong> — a full charge gives roughly 5½ hours of play with Bluetooth MIDI connected and the monitor screen open.</li>
+          <li><strong>Charging</strong> — plug BigToe into a USB charger with the supplied USB-C cable. A full charge from empty takes about 2½–3 hours, and it's fine to leave it plugged in overnight.</li>
+          <li><strong>Battery meter</strong> — the monitor screen shows the estimated charge remaining. Below 20% it turns red and warns you; at that point you have about an hour of play left.</li>
+          <li><strong>Automatic shutdown</strong> — when the battery is empty, the monitor screen shows a message and BigToe shuts itself down to protect the battery. Plug it in to charge; it restarts on its own within about 2 minutes. If you switch it on while the battery is too low, the LED blinks yellow 3 times and goes dark.</li>
+          <li><strong>Turn it off after playing</strong> — even after an automatic shutdown, a switched-on BigToe keeps drawing a small amount of power. Charge it or turn the power switch off: leaving the switch on with an empty battery will degrade the battery.</li>
         </ul>
 
         <h3 id="menu-functions">Menu functions</h3>
