@@ -271,6 +271,19 @@
 
   .note strong { color: var(--amber); font-weight: 600; }
 
+  /* FCC pre-authorization notice (47 CFR 2.803) - remove once the device is certified */
+  .fcc-callout {
+    margin: 24px 0 0;
+    padding: 14px 18px;
+    border: 2px solid var(--amber);
+    border-radius: var(--radius);
+    background: var(--bg-panel);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .fcc-callout strong { color: var(--amber); font-weight: 600; }
+
   /* Components — 3 up */
   .components {
     display: grid;
@@ -576,6 +589,7 @@
         </div>
         <h1 class="title">BigToe</h1>
         <p class="subtitle">Operating Guide — everything you need to set up, connect, and play with your BigToe MIDI foot controller.</p>
+        <aside class="fcc-callout" role="note"><strong>FCC Notice:</strong> This device has not been authorized as required by the rules of the Federal Communications Commission. This device is not, and may not be, offered for sale or lease, or sold or leased, until authorization is obtained.</aside>
       </header>
 
       <section id="introduction">
